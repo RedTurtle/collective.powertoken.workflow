@@ -38,15 +38,16 @@ class TestWorkflow(TestCase):
 
     def test_configuration(self):
         token = self.utility.enablePowerToken(self.doc1, 'workflow.doAction')
-        self.assertRaises(PowerTokenConfigurationError, self.utility.consumeAction, self.doc1, token)
+        self.assertRaises(PowerTokenConfigurationError, self.utility.consumeActions, self.doc1, token)
 
     def test_actionForAnonymous(self):
         token = self.utility.enablePowerToken(self.doc1, 'workflow.doAction', workflow_action='publish')
-        self.assertRaises(WorkflowException, self.utility.consumeAction, self.doc1, token)
+        self.assertRaises(WorkflowException, self.utility.consumeActions, self.doc1, token)
         token = self.utility.enablePowerToken(self.doc1, 'workflow.doAction', roles=['Contributor'], workflow_action='publish')
-        self.assertRaises(WorkflowException, self.utility.consumeAction, self.doc1, token)
-        token = self.utility.enablePowerToken(self.doc1, 'workflow.doAction', roles=['Manager'], workflow_action='publish')
-        self.assertEqual(self.portal.portal_workflow.getInfoFor(self.doc1, 'review_state'), 'published')
+        self.assertRaises(WorkflowException, self.utility.consumeActions, self.doc1, token)
+        token = self.utility.enablePowerToken(self.doc2, 'workflow.doAction', roles=['Manager'], workflow_action='publish')
+        self.assertEqual(self.utility.consumeActions(self.doc2, token), ['published'])
+        self.assertEqual(self.portal.portal_workflow.getInfoFor(self.doc2, 'review_state'), 'published')
 
     def test_security(self):
         token = self.utility.enablePowerToken(self.doc1, 'workflow.doAction', roles=['Manager'], workflow_action='publish')

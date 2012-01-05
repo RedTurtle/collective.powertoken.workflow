@@ -13,7 +13,7 @@ from zope.component import getGlobalSiteManager
 from Products.CMFCore.interfaces import IContentish
 
 from zope.publisher.interfaces.browser import IHTTPRequest
-from collective.powertoken.core.tests.action import TestPowerActionProvider
+from collective.powertoken.core.tests.base import TestPowerActionProvider
 from collective.powertoken.core.interfaces import IPowerActionProvider
 from collective.powertoken.core.interfaces import IPowerTokenUtility, IPowerTokenizedContent
 
