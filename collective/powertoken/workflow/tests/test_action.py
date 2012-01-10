@@ -1,14 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from zope.component import getUtility
-from zope.annotation.interfaces import IAnnotations
 
-from zope.component import provideAdapter
-from zope.component import getGlobalSiteManager
-
-from zope.publisher.interfaces.browser import IHTTPRequest
-
-from Products.CMFCore.interfaces import IContentish
 from Products.DCWorkflow.DCWorkflow import WorkflowException
 
 from collective.powertoken.core.interfaces import IPowerTokenUtility
@@ -50,7 +43,8 @@ class TestWorkflow(TestCase):
         self.assertEqual(self.portal.portal_workflow.getInfoFor(self.doc2, 'review_state'), 'published')
 
     def test_security(self):
-        token = self.utility.enablePowerToken(self.doc1, 'workflow.doAction', roles=['Manager'], workflow_action='publish')
+        token = self.utility.enablePowerToken(self.doc2, 'workflow.doAction', roles=['Manager'], workflow_action='publish')
+        self.utility.consumeActions(self.doc2, token)
         self.assertEqual(self.portal.portal_workflow.getInfoFor(self.doc1, 'review_state'), 'published')
         self.assertEquals(self.portal.portal_membership.getAuthenticatedMember().getRolesInContext(self.doc1), ['Anonymous'])
 
