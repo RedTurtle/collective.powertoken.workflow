@@ -30,3 +30,12 @@ Use case
 ========
 
 You can perform a state change for a document, regardless of your roles in the site.
+
+Authors
+=======
+
+This product was developed by RedTurtle Technology team.
+
+.. image:: http://www.redturtle.it/redturtle_banner.png
+   :alt: RedTurtle Technology Site
+   :target: http://www.redturtle.it/
