@@ -19,10 +19,10 @@ class WorkflowActionProvider(object):
         self.context = context
         self.request = request
     
-    def doAction(self, action):
+    def doAction(self, action, **kwargs):
         if not action.params.get('workflow_action'):
             raise PowerTokenConfigurationError('workflow.doAction need the workflow_action parameter in the IPowerActionConfiguration object')
         context = self.context
         portal_workflow = getToolByName(context, 'portal_workflow')
-        portal_workflow.doActionFor(context, action.params['workflow_action'])
+        portal_workflow.doActionFor(context, action.params['workflow_action'], comment=kwargs.get('comment', None))
         return portal_workflow.getInfoFor(context, 'review_state')

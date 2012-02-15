@@ -42,6 +42,11 @@ class TestWorkflow(TestCase):
         self.assertEqual(self.utility.consumeActions(self.doc2, token), ['published'])
         self.assertEqual(self.portal.portal_workflow.getInfoFor(self.doc2, 'review_state'), 'published')
 
+    def test_comment(self):
+        token = self.utility.enablePowerToken(self.doc2, 'workflow.doAction', roles=['Manager'], workflow_action='publish')
+        self.utility.consumeActions(self.doc2, token, comment='Hello darling!')
+        self.assertEqual(self.portal.portal_workflow.getInfoFor(self.doc2, 'comments') ,'Hello darling!')
+
     def test_security(self):
         token = self.utility.enablePowerToken(self.doc2, 'workflow.doAction', roles=['Manager'], workflow_action='publish')
         self.utility.consumeActions(self.doc2, token)

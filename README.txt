@@ -1,7 +1,7 @@
 Introduction
 ============
 
-A workflow action implementation for `collective.powertoken`__
+A workflow action implementation for `collective.powertoken`__.
 
 __ http://plone.org/products/collective.powertoken.core
 
@@ -14,17 +14,27 @@ performs workflow action when consumed.
 >>> from collective.powertoken.core.interfaces import IPowerTokenUtility
 >>> utility = getUtility(IPowerTokenUtility)
 >>> token = utility.enablePowerToken(document, 'workflow.doAction', workflow_action='publish')
->>> results = utility.consumeAction(document, token)
+>>> results = utility.consumeActions(document, token)
 >>> print results
 ['published']
 
 You will get the new state of the document as result.
 
+You can optionally add a runtime parameter to the action provider, for adding also the
+workflow state change comment.
+
+>>> token = utility.enablePowerToken(document, 'workflow.doAction', workflow_action='retract')
+>>> results = utility.consumeActions(document, token, comment="Hello! I hide this!")
+['private']
+
 Parameters
 ----------
 
-``workflow_action``
+``workflow_action`` (configuration parameter)
     Required. You need to provide the workflow action to perform.
+
+``comment`` (runtime parameter)
+    Optional. Use to save also a comment to the workflow action.
 
 Use case
 ========

@@ -3,7 +3,7 @@ import os
 
 tests_require = ['zope.testing', 'Products.PloneTestCase']
 
-version = '0.1.0'
+version = '0.2.0'
 
 setup(name='collective.powertoken.workflow',
       version=version,
@@ -19,7 +19,7 @@ setup(name='collective.powertoken.workflow',
         "Framework :: Plone :: 4.1",
         "Framework :: Zope2",
         "Framework :: Zope3",
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "Programming Language :: Python",
         ],
@@ -34,7 +34,7 @@ setup(name='collective.powertoken.workflow',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'collective.powertoken.core',
+          'collective.powertoken.core>=0.3.0',
       ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
